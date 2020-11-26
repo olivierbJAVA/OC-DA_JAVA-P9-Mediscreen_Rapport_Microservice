@@ -23,8 +23,15 @@ public class RapportServiceImpl implements IRapportService {
         this.noteProxy = noteProxy;
     }
 
+    /**
+     * Return a report assessing diabetes risk for a patient given its last name and first name.
+     *
+     * @param lastName The last name of the patient for which to generate the report
+     * @param firstName The first name of the patient for which to generate the report
+     * @return The report assessing diabetes risk for the patient
+     */
     @Override
-    public Rapport getRapport(String lastName, String firstName) {
+    public Rapport getRapportByLastNameAndFirstName(String lastName, String firstName) {
 
         Patient patient = patientProxy.getPatientByLastNameAndFirstName(lastName, firstName);
 
@@ -38,4 +45,24 @@ public class RapportServiceImpl implements IRapportService {
         return rapport;
     }
 
+    /**
+     * Return a report assessing diabetes risk for a patient given its identifier.
+     *
+     * @param id The identifier of the patient for which to generate the report
+     * @return The report assessing diabetes risk for the patient
+     */
+    @Override
+    public Rapport getRapportById(long id) {
+
+        Patient patient = patientProxy.getPatientById(id);
+
+        List<Note> notes = noteProxy.getNotesByLastNameAndFirstName(patient.getLastName(), patient.getFirstName());
+
+        Rapport rapport = new Rapport(patient.getLastName(), patient.getFirstName(), patient.getDateOfBirth(), patient.getSex());
+        rapport.setNotes(notes);
+
+        System.out.println("rapport = " + rapport.toString() );
+
+        return rapport;
+    }
 }
