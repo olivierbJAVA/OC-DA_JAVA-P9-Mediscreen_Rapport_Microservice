@@ -7,9 +7,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+/**
+ * Proxy for the Note Microservice using Feign to communicate with the Note Microservice.
+ */
 @FeignClient(name = "NOTE-MICROSERVICE", url = "localhost:8082")
 public interface NoteMicroserviceProxy {
 
+    /**
+     * Return the notes history for a patient given its last name and first name.
+     *
+     * @param lastName The last name of the patient for which to get the notes
+     * @param firstName The first name of the patient for which to get the notes
+     * @return The list of notes
+     */
     @GetMapping(value = "/notes/patHistoryByFamilyAndGiven")
     List<Note> getNotesByLastNameAndFirstName(@RequestParam("family") String lastName, @RequestParam("given") String firstName);
 
