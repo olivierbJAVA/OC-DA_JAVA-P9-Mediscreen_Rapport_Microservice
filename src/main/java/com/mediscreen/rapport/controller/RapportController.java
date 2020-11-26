@@ -25,20 +25,38 @@ public class RapportController {
     }
 
     /**
-     * Method managing the GET "/patients/patientByFamilyAndGiven" endpoint HTTP request to get a patient given its last name and first name in JSON data.
+     * Method managing the GET "/assess/lastNameAndFirstName" endpoint HTTP request to get a report assessing diabetes risk for a patient given its last name and first name in JSON data.
      *
      * @param lastName The last name of the patient for which to generate the report
      * @param firstName The first name of the patient for which to generate the report
      * @return A ResponseEntity containing the report and the HTTP status code
      */
-    @GetMapping("/rapport/patientByFamilyAndGiven")
-    public ResponseEntity<Rapport> getRapportByLastNameAndFirstName(@RequestParam("family") String lastName, @RequestParam("given") String firstName) {
+    @GetMapping("/assess/lastNameAndFirstName")
+    public ResponseEntity<Rapport> getRapportByLastNameAndFirstName(@RequestParam("lastName") String lastName, @RequestParam("firstName") String firstName) {
 
-        logger.info("Request : GET /rapport/patientByFamilyAndGiven with last name = {} & first name = {}", lastName, firstName);
+        logger.info("Request : GET /assess/lastNameAndFirstName with last name = {} & first name = {}", lastName, firstName);
 
-        Rapport rapport = rapportService.getRapport(lastName, firstName);
+        Rapport rapport = rapportService.getRapportByLastNameAndFirstName(lastName, firstName);
 
         logger.info("Success : rapport for patient with last name {} and first name {} generated", lastName, firstName);
+
+        return new ResponseEntity<>(rapport, HttpStatus.OK);
+    }
+
+    /**
+     * Method managing the GET "/assess/id" endpoint HTTP request to get a report assessing diabetes risk for a patient given its identifier in JSON data.
+     *
+     * @param id The identifier of the patient for which to generate the report
+     * @return A ResponseEntity containing the report and the HTTP status code
+     */
+    @GetMapping("/assess/id")
+    public ResponseEntity<Rapport> getRapportById(@RequestParam("id") long id) {
+
+        logger.info("Request : GET /assess/id with id = {}", id);
+
+        Rapport rapport = rapportService.getRapportById(id);
+
+        logger.info("Success : rapport for patient with id {} generated", id);
 
         return new ResponseEntity<>(rapport, HttpStatus.OK);
     }
