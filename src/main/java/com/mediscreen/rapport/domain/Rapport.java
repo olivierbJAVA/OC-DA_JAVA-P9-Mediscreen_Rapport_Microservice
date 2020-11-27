@@ -1,5 +1,6 @@
 package com.mediscreen.rapport.domain;
 
+import com.mediscreen.rapport.constant.Assessment;
 import com.mediscreen.rapport.constant.Sex;
 
 import java.io.Serializable;
@@ -18,16 +19,17 @@ public class Rapport implements Serializable {
     private LocalDate dateOfBirth;
     private Sex sex;
 
-    private List<Note> notes;
+    private Assessment assessment;
 
     public Rapport() {
     }
 
-    public Rapport(String lastName, String firstName, LocalDate dateOfBirth, Sex sex) {
+    public Rapport(String lastName, String firstName, LocalDate dateOfBirth, Sex sex, Assessment assessment) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.dateOfBirth = dateOfBirth;
         this.sex = sex;
+        this.assessment = assessment;
     }
 
     public String getLastName() {
@@ -62,22 +64,11 @@ public class Rapport implements Serializable {
         this.sex = sex;
     }
 
-    public List<Note> getNotes() {
-        return notes;
+    public Assessment getAssessment() {
+        return assessment;
     }
 
-    public void setNotes(List<Note> notes) {
-        this.notes = notes;
-    }
-
-    @Override
-    public String toString() {
-        return "Rapport{" +
-                "lastName='" + lastName + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", sex=" + sex +
-                ", notes=" + notes +
-                '}';
+    public void setAssessment(Assessment assessment) {
+        this.assessment = assessment;
     }
 }
