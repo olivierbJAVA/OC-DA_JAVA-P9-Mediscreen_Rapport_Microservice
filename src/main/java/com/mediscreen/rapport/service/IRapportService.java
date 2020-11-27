@@ -37,4 +37,12 @@ public interface IRapportService {
      * @return The diabetes risk assessment for the patient
      */
     Assessment computeRiskAssessment(Patient patient, List<Note> notes);
+
+    /**
+     * Compute the number of diabetes risk declencheurs for a patient and its notes history.
+     *
+     * @param notes The patient notes history
+     * @return The number of diabetes risk declencheurs for the patient
+     */
+    long computeNbDeclencheurs(List<Note> notes);
 }

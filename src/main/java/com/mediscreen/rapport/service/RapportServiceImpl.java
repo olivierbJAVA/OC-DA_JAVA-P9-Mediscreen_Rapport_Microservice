@@ -6,15 +6,24 @@ import com.mediscreen.rapport.domain.Patient;
 import com.mediscreen.rapport.domain.Rapport;
 import com.mediscreen.rapport.proxy.NoteMicroserviceProxy;
 import com.mediscreen.rapport.proxy.PatientMicroserviceProxy;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Class in charge of managing the services for Rapport entities.
  */
+//@PropertySource(value="declencheurs", encoding = "UTF-8")
+@PropertySource("declencheurs")
 @Service
 public class RapportServiceImpl implements IRapportService {
+
+    @Value("${listDeclencheurs}")
+    private String[] declencheurs;
 
     private PatientMicroserviceProxy patientProxy;
     private NoteMicroserviceProxy noteProxy;
@@ -42,8 +51,6 @@ public class RapportServiceImpl implements IRapportService {
 
         Rapport rapport = new Rapport(patient.getLastName(), patient.getFirstName(), patient.getDateOfBirth(), patient.getSex(), assessment);
 
-        System.out.println("rapport = " + rapport.toString() );
-
         return rapport;
     }
 
@@ -64,8 +71,6 @@ public class RapportServiceImpl implements IRapportService {
 
         Rapport rapport = new Rapport(patient.getLastName(), patient.getFirstName(), patient.getDateOfBirth(), patient.getSex(), assessment);
 
-        System.out.println("rapport = " + rapport.toString() );
-
         return rapport;
     }
 
@@ -79,9 +84,40 @@ public class RapportServiceImpl implements IRapportService {
     @Override
     public Assessment computeRiskAssessment(Patient patient, List<Note> notes) {
 
+        long nbDeclencheurs = computeNbDeclencheurs(notes);
+
         // TO DO
         Assessment assessment = Assessment.None;
 
         return assessment;
+    }
+
+    /**
+     * Compute the number of diabetes risk declencheurs for a patient and its notes history.
+     *
+     * @param notes The patient notes history
+     * @return The number of diabetes risk declencheurs for the patient
+     */
+    @Override
+    public long computeNbDeclencheurs(List<Note> notes) {
+
+        Arrays.stream(declencheurs).forEach((a)->System.out.println(a));
+
+        String notesString = notes.stream()
+                .map(note -> note.getNoteText())
+                .map(noteText -> noteText.toLowerCase())
+                .map(noteText -> noteText.trim())
+                .collect(Collectors.joining());
+
+        long nbDeclencheurs = Arrays.stream(declencheurs)
+                .map(declencheur -> declencheur.toLowerCase())
+                .filter(s->notesString.contains(s))
+                .distinct()
+                .count();
+
+        System.out.println("notes =" + notesString);
+        System.out.println("nbDeclencheurs =" + nbDeclencheurs);
+
+        return nbDeclencheurs;
     }
 }
