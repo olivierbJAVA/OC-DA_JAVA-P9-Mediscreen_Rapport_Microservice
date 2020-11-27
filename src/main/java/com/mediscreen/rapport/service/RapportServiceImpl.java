@@ -1,5 +1,6 @@
 package com.mediscreen.rapport.service;
 
+import com.mediscreen.rapport.constant.Assessment;
 import com.mediscreen.rapport.domain.Note;
 import com.mediscreen.rapport.domain.Patient;
 import com.mediscreen.rapport.domain.Rapport;
@@ -37,8 +38,9 @@ public class RapportServiceImpl implements IRapportService {
 
         List<Note> notes = noteProxy.getNotesByLastNameAndFirstName(lastName, firstName);
 
-        Rapport rapport = new Rapport(patient.getLastName(), patient.getFirstName(), patient.getDateOfBirth(), patient.getSex());
-        rapport.setNotes(notes);
+        Assessment assessment = computeRiskAssessment(patient, notes);
+
+        Rapport rapport = new Rapport(patient.getLastName(), patient.getFirstName(), patient.getDateOfBirth(), patient.getSex(), assessment);
 
         System.out.println("rapport = " + rapport.toString() );
 
@@ -58,11 +60,28 @@ public class RapportServiceImpl implements IRapportService {
 
         List<Note> notes = noteProxy.getNotesByLastNameAndFirstName(patient.getLastName(), patient.getFirstName());
 
-        Rapport rapport = new Rapport(patient.getLastName(), patient.getFirstName(), patient.getDateOfBirth(), patient.getSex());
-        rapport.setNotes(notes);
+        Assessment assessment = computeRiskAssessment(patient, notes);
+
+        Rapport rapport = new Rapport(patient.getLastName(), patient.getFirstName(), patient.getDateOfBirth(), patient.getSex(), assessment);
 
         System.out.println("rapport = " + rapport.toString() );
 
         return rapport;
+    }
+
+    /**
+     * Compute the diabetes risk assessment for a patient and its notes history.
+     *
+     * @param patient The patient for which to generate the report
+     * @param notes The patient notes history
+     * @return The diabetes risk assessment for the patient
+     */
+    @Override
+    public Assessment computeRiskAssessment(Patient patient, List<Note> notes) {
+
+        // TO DO
+        Assessment assessment = Assessment.None;
+
+        return assessment;
     }
 }

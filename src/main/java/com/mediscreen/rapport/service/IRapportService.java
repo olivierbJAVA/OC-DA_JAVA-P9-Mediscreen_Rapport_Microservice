@@ -1,6 +1,11 @@
 package com.mediscreen.rapport.service;
 
+import com.mediscreen.rapport.constant.Assessment;
+import com.mediscreen.rapport.domain.Note;
+import com.mediscreen.rapport.domain.Patient;
 import com.mediscreen.rapport.domain.Rapport;
+
+import java.util.List;
 
 /**
  * Interface to be implemented to manage the services for Rapport entities.
@@ -23,4 +28,13 @@ public interface IRapportService {
      * @return The report assessing diabetes risk for the patient
      */
     Rapport getRapportById(long id);
+
+    /**
+     * Compute the diabetes risk assessment for a patient and its notes history.
+     *
+     * @param patient The patient for which to generate the report
+     * @param notes The patient notes history
+     * @return The diabetes risk assessment for the patient
+     */
+    Assessment computeRiskAssessment(Patient patient, List<Note> notes);
 }
