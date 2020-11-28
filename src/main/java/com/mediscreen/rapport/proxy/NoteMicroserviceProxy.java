@@ -20,7 +20,7 @@ public interface NoteMicroserviceProxy {
      * @param firstName The first name of the patient for which to get the notes
      * @return The list of notes
      */
-    @GetMapping(value = "/notes/patHistoryByFamilyAndGiven")
+    @GetMapping(value = "/patHistoryByFamilyAndGiven")
     List<Note> getNotesByLastNameAndFirstName(@RequestParam("family") String lastName, @RequestParam("given") String firstName);
 
 }
