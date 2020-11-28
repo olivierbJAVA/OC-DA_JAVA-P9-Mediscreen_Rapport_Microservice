@@ -1,6 +1,7 @@
 package com.mediscreen.rapport.service;
 
 import com.mediscreen.rapport.constant.Assessment;
+import com.mediscreen.rapport.constant.Sex;
 import com.mediscreen.rapport.domain.Note;
 import com.mediscreen.rapport.domain.Patient;
 import com.mediscreen.rapport.domain.Rapport;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,7 +52,7 @@ public class RapportServiceImpl implements IRapportService {
 
         Assessment assessment = computeRiskAssessment(patient, notes);
 
-        Rapport rapport = new Rapport(patient.getLastName(), patient.getFirstName(), patient.getDateOfBirth(), patient.getSex(), assessment);
+        Rapport rapport = new Rapport(patient.getLastName(), patient.getFirstName(), patient.getSex(), getPatientAge(patient), assessment);
 
         return rapport;
     }
@@ -69,7 +72,7 @@ public class RapportServiceImpl implements IRapportService {
 
         Assessment assessment = computeRiskAssessment(patient, notes);
 
-        Rapport rapport = new Rapport(patient.getLastName(), patient.getFirstName(), patient.getDateOfBirth(), patient.getSex(), assessment);
+        Rapport rapport = new Rapport(patient.getLastName(), patient.getFirstName(), patient.getSex(), getPatientAge(patient), assessment);
 
         return rapport;
     }
@@ -86,8 +89,25 @@ public class RapportServiceImpl implements IRapportService {
 
         long nbDeclencheurs = computeNbDeclencheurs(notes);
 
-        // TO DO
+        long agePatient = getPatientAge(patient);
+
         Assessment assessment = Assessment.None;
+
+        // TO DO
+        if( (agePatient>30 && nbDeclencheurs>=8) ||
+            (patient.getSex()==Sex.F && agePatient<30 && nbDeclencheurs>=7) ||
+            (patient.getSex()==Sex.M && agePatient<30 && nbDeclencheurs>=5)
+        ) {
+            assessment = Assessment.EarlyOnset;
+        } else if ( (agePatient>30 && nbDeclencheurs>=6 && nbDeclencheurs<=7) ||
+                    (patient.getSex()==Sex.F && agePatient<30 && nbDeclencheurs>=4 && nbDeclencheurs<=6) ||
+                (patient.getSex()==Sex.M && agePatient<30 && nbDeclencheurs>=3 && nbDeclencheurs<=4)
+        ) {
+            assessment = Assessment.InDanger;
+        } else if ( agePatient>30 && nbDeclencheurs>=2 && nbDeclencheurs<=5
+        ) {
+            assessment = Assessment.Borderline;
+        }
 
         return assessment;
     }
@@ -101,7 +121,7 @@ public class RapportServiceImpl implements IRapportService {
     @Override
     public long computeNbDeclencheurs(List<Note> notes) {
 
-        Arrays.stream(declencheurs).forEach((a)->System.out.println(a));
+        Arrays.stream(declencheurs).forEach((a)->System.out.print(a));
 
         String notesString = notes.stream()
                 .map(note -> note.getNoteText())
@@ -119,5 +139,17 @@ public class RapportServiceImpl implements IRapportService {
         System.out.println("nbDeclencheurs =" + nbDeclencheurs);
 
         return nbDeclencheurs;
+    }
+
+    /**
+     * Compute the age of a patient.
+     *
+     * @param patient The patient
+     * @return The age of a patient
+     */
+    @Override
+    public long getPatientAge(Patient patient) {
+
+        return ChronoUnit.YEARS.between(patient.getDateOfBirth(), LocalDate.now());
     }
 }

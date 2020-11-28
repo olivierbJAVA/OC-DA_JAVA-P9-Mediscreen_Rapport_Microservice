@@ -45,4 +45,12 @@ public interface IRapportService {
      * @return The number of diabetes risk declencheurs for the patient
      */
     long computeNbDeclencheurs(List<Note> notes);
+
+    /**
+     * Compute the age of a patient.
+     *
+     * @param patient The patient
+     * @return The age of a patient
+     */
+    long getPatientAge(Patient patient);
 }
