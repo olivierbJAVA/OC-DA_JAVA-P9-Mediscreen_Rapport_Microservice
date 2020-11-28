@@ -15,8 +15,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.time.LocalDate;
-
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -40,7 +38,7 @@ public class RapportControllerTest {
     @Test
     public void getRapportByLastNameAndFirstName_whenLastNameAndFirstNameExist() {
         //ARRANGE
-        Rapport rapportToGet = new Rapport("PatientTestLastName", "PatientTestFirstName", LocalDate.of(2000,01,01), Sex.M, Assessment.None);
+        Rapport rapportToGet = new Rapport("PatientTestLastName", "PatientTestFirstName", Sex.M, 50L, Assessment.None);
         doReturn(rapportToGet).when(mockRapportService).getRapportByLastNameAndFirstName("PatientTestLastName", "PatientTestFirstName");
 
         //ACT & ASSERT
@@ -76,7 +74,7 @@ public class RapportControllerTest {
     @Test
     public void getRapportById_whenIdExist() {
         //ARRANGE
-        Rapport rapportToGet = new Rapport("PatientTestLastName", "PatientTestFirstName", LocalDate.of(2000,01,01), Sex.M, Assessment.None);
+        Rapport rapportToGet = new Rapport("PatientTestLastName", "PatientTestFirstName", Sex.M, 50L, Assessment.None);
         doReturn(rapportToGet).when(mockRapportService).getRapportById(1L);
 
         //ACT & ASSERT
