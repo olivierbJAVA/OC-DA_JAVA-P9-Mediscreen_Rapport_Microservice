@@ -4,8 +4,6 @@ import com.mediscreen.rapport.constant.Assessment;
 import com.mediscreen.rapport.constant.Sex;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.List;
 
 /**
  * Class materializing a patient diabetes risk assessment report.
@@ -16,19 +14,19 @@ public class Rapport implements Serializable {
 
     private String lastName;
     private String firstName;
-    private LocalDate dateOfBirth;
     private Sex sex;
+    private long age;
 
     private Assessment assessment;
 
     public Rapport() {
     }
 
-    public Rapport(String lastName, String firstName, LocalDate dateOfBirth, Sex sex, Assessment assessment) {
+    public Rapport(String lastName, String firstName, Sex sex, long age, Assessment assessment) {
         this.lastName = lastName;
         this.firstName = firstName;
-        this.dateOfBirth = dateOfBirth;
         this.sex = sex;
+        this.age = age;
         this.assessment = assessment;
     }
 
@@ -48,20 +46,20 @@ public class Rapport implements Serializable {
         this.firstName = firstName;
     }
 
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
     public Sex getSex() {
         return sex;
     }
 
     public void setSex(Sex sex) {
         this.sex = sex;
+    }
+
+    public long getAge() {
+        return age;
+    }
+
+    public void setAge(long age) {
+        this.age = age;
     }
 
     public Assessment getAssessment() {
