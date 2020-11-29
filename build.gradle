@@ -2,11 +2,12 @@ plugins {
 	id 'org.springframework.boot' version '2.3.6.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
+	id 'jacoco'
 }
 
 group = 'com.mediscreen'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+version = '1.0.0'
+sourceCompatibility = '1.8'
 
 repositories {
 	mavenCentral()
@@ -30,6 +31,24 @@ dependencyManagement {
 	}
 }
 
+bootJar {
+	archiveFileName = "Mediscreen_Rapport-1.0.0.jar"
+}
+
 test {
 	useJUnitPlatform()
 }
+
+jacoco {
+	toolVersion = "0.8.4"
+}
+
+jacocoTestReport {
+	reports {
+		xml.enabled true
+		csv.enabled false
+		html.destination file("${buildDir}/jacocoHtml")
+	}
+}
+
+test.finalizedBy jacocoTestReport
