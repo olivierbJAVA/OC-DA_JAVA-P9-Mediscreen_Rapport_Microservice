@@ -122,6 +122,7 @@ public class RapportServiceImpl implements IRapportService {
     public long computeNbDeclencheurs(List<Note> notes) {
 
         Arrays.stream(declencheurs).forEach((a)->System.out.print(a));
+        System.out.println();
 
         String notesString = notes.stream()
                 .map(note -> note.getNoteText())
