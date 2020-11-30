@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Proxy for the Note Microservice using Feign to communicate with the Note Microservice.
  */
-@FeignClient(name = "NOTE-MICROSERVICE", url = "localhost:8082")
+@FeignClient(name = "NOTE-MICROSERVICE", url = "${noteMicroserviceUrl}")
 public interface NoteMicroserviceProxy {
 
     /**

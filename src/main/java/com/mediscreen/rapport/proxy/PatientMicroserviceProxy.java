@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * Proxy for the Patient Microservice using Feign to communicate with the Patient Microservice.
  */
-@FeignClient(name = "PATIENT-MICROSERVICE", url = "localhost:8081")
+@FeignClient(name = "PATIENT-MICROSERVICE", url = "${patientMicroserviceUrl}")
 public interface PatientMicroserviceProxy {
 
     /**
