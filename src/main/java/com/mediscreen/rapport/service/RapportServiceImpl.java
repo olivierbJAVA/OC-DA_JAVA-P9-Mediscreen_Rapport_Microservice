@@ -125,7 +125,7 @@ public class RapportServiceImpl implements IRapportService {
         System.out.println();
 
         String notesString = notes.stream()
-                .map(note -> note.getNoteText())
+                .map(Note::getNoteText)
                 .map(noteText -> noteText.toLowerCase())
                 .map(noteText -> noteText.trim())
                 .collect(Collectors.joining());
