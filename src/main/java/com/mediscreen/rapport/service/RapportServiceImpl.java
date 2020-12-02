@@ -25,15 +25,16 @@ import java.util.stream.Collectors;
 @Service
 public class RapportServiceImpl implements IRapportService {
 
-    @Value("${listDeclencheurs}")
+    //@Value("${listDeclencheurs}")
     private String[] declencheurs;
 
     private PatientMicroserviceProxy patientProxy;
     private NoteMicroserviceProxy noteProxy;
 
-    public RapportServiceImpl(PatientMicroserviceProxy patientProxy, NoteMicroserviceProxy noteProxy) {
+    public RapportServiceImpl(PatientMicroserviceProxy patientProxy, NoteMicroserviceProxy noteProxy, @Value("${listDeclencheurs}") String[] declencheurs) {
         this.patientProxy = patientProxy;
         this.noteProxy = noteProxy;
+        this.declencheurs = declencheurs;
     }
 
     /**
