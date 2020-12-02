@@ -74,7 +74,12 @@ public class RapportControllerTest {
     @Test
     public void getRapportById_whenIdExist() {
         //ARRANGE
-        Rapport rapportToGet = new Rapport("PatientTestLastName", "PatientTestFirstName", Sex.M, 50L, Assessment.None);
+        Rapport rapportToGet = new Rapport();
+        rapportToGet.setLastName("PatientTestLastName");
+        rapportToGet.setFirstName("PatientTestFirstName");
+        rapportToGet.setSex(Sex.M);
+        rapportToGet.setAge(50L);
+        rapportToGet.setAssessment(Assessment.None);
         doReturn(rapportToGet).when(mockRapportService).getRapportById(1L);
 
         //ACT & ASSERT
