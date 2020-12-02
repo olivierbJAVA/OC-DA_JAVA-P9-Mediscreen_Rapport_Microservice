@@ -18,7 +18,7 @@ public class RapportController {
 
     private static final Logger logger = LoggerFactory.getLogger(RapportController.class);
 
-    private IRapportService rapportService;
+    private final IRapportService rapportService;
 
     public RapportController(IRapportService rapportService) {
         this.rapportService = rapportService;
