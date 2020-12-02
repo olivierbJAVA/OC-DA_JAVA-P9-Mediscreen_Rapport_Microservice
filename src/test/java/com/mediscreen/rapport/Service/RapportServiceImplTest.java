@@ -32,11 +32,11 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class RapportServiceImplTest {
 
-   // @Value("${listDeclencheurs}")
-   // private String[] declencheurs;
+   //@Value("${listDeclencheurs}")
+   //private String[] declencheurs;
 
-   // @InjectMocks
-  //  private RapportServiceImpl rapportServiceImplUnderTest;
+   //@InjectMocks
+   //private RapportServiceImpl rapportServiceImplUnderTest;
 
     private RapportServiceImpl rapportServiceImplUnderTest;
 
@@ -52,7 +52,7 @@ public class RapportServiceImplTest {
         rapportServiceImplUnderTest = new RapportServiceImpl( mockPatientProxy,  mockNoteProxy, declencheurs);
     }
 
-    //NONE
+    //Tests for patient with diabetes risk report assessment = NONE
     @Test
     public void getRapportByLastNameAndFirstName_LessThan30SexMDeclencheur0() {
         // ARRANGE
@@ -357,7 +357,7 @@ public class RapportServiceImplTest {
         verify(mockNoteProxy, times(1)).getNotesByLastNameAndFirstName("PatientTestLastName", "PatientTestFirstName");
     }
 
-    //BORDERLINE
+    //Tests for patient with diabetes risk report assessment = BORDERLINE
     @Test
     public void getRapportByLastNameAndFirstName_MoreThan30SexMDeclencheurs2() {
         // ARRANGE
@@ -642,7 +642,7 @@ public class RapportServiceImplTest {
         verify(mockNoteProxy, times(1)).getNotesByLastNameAndFirstName("PatientTestLastName", "PatientTestFirstName");
     }
 
-    //INDANDGER
+    //Tests for patient with diabetes risk report assessment = IN DANGER
     @Test
     public void getRapportByLastNameAndFirstName_LessThan30SexMDeclencheur3() {
         // ARRANGE
@@ -1012,7 +1012,7 @@ public class RapportServiceImplTest {
         verify(mockNoteProxy, times(1)).getNotesByLastNameAndFirstName("PatientTestLastName", "PatientTestFirstName");
     }
 
-    //EARLYONSET
+    //Tests for patient with diabetes risk report assessment = EARLY ONSET
     @Test
     public void getRapportByLastNameAndFirstName_LessThan30SexMDeclencheur5() {
         // ARRANGE
@@ -1392,34 +1392,103 @@ public class RapportServiceImplTest {
         verify(mockPatientProxy, times(1)).getPatientByLastNameAndFirstName("PatientTestLastName", "PatientTestFirstName");
         verify(mockNoteProxy, times(1)).getNotesByLastNameAndFirstName("PatientTestLastName", "PatientTestFirstName");
     }
-/*
+
     @Test
-    public void getRapportById() {
+    public void getRapportById_MoreThan30SexMDeclencheur9() {
         // ARRANGE
-        Patient patientTest = new Patient("PatientTestLastName", "PatientTestFirstName", LocalDate.of(2000,01,01), Sex.M, "PatientTestHomeAddress","111-222-3333");
+        Assessment assessmentTest = Assessment.EarlyOnset;
+
+        Patient patientTest = new Patient();
+        patientTest.setLastName("PatientTestLastName");
+        patientTest.setFirstName("PatientTestFirstName");
+        patientTest.setDateOfBirth(LocalDate.of(1950,01,01));
+        patientTest.setSex(Sex.M);
+        patientTest.setHomeAddress("PatientTestHomeAddress");
+        patientTest.setPhoneNumber("111-222-3333");
         patientTest.setId(1L);
         doReturn(patientTest).when(mockPatientProxy).getPatientById(1L);
 
-        Note noteTest1 = new Note("PatientTestLastName", "PatientTestFirstName","NoteText1");
+        Note noteTest1 = new Note("PatientTestLastName", "PatientTestFirstName","Height");
         noteTest1.setPatientId(1L);
-        Note noteTest2 = new Note("PatientTestLastName", "PatientTestFirstName","NoteText2");
-        noteTest1.setPatientId(1L);
-        Note noteTest3 = new Note("PatientTestLastName", "PatientTestFirstName","NoteText3");
-        noteTest1.setPatientId(1L);
+        Note noteTest2 = new Note("PatientTestLastName", "PatientTestFirstName","Weight");
+        noteTest2.setPatientId(1L);
+        Note noteTest3 = new Note("PatientTestLastName", "PatientTestFirstName","Reaction");
+        noteTest3.setPatientId(1L);
+        Note noteTest4 = new Note("PatientTestLastName", "PatientTestFirstName","Antibodies");
+        noteTest4.setPatientId(1L);
+        Note noteTest5 = new Note("PatientTestLastName", "PatientTestFirstName","Smoker");
+        noteTest5.setPatientId(1L);
+        Note noteTest6 = new Note("PatientTestLastName", "PatientTestFirstName","Cholesterol");
+        noteTest6.setPatientId(1L);
+        Note noteTest7 = new Note("PatientTestLastName", "PatientTestFirstName","Abnormal");
+        noteTest7.setPatientId(1L);
+        Note noteTest8 = new Note("PatientTestLastName", "PatientTestFirstName","Dizziness");
+        noteTest8.setPatientId(1L);
+        Note noteTest9 = new Note("PatientTestLastName", "PatientTestFirstName","Hemoglobin A1C");
+        noteTest9.setPatientId(1L);
 
         List<Note> notesTest = new ArrayList<>();
         notesTest.add(noteTest1);
         notesTest.add(noteTest2);
         notesTest.add(noteTest3);
+        notesTest.add(noteTest4);
+        notesTest.add(noteTest5);
+        notesTest.add(noteTest6);
+        notesTest.add(noteTest7);
+        notesTest.add(noteTest8);
+        notesTest.add(noteTest9);
         doReturn(notesTest).when(mockNoteProxy).getNotesByLastNameAndFirstName("PatientTestLastName", "PatientTestFirstName");
 
         // ACT
-        Rapport rapportFound = rapportServiceImplUnderTest.getRapportById(1L);
+        Rapport rapportGenerated = rapportServiceImplUnderTest.getRapportById(1L);
 
         // ASSERT
+        assertEquals(patientTest.getLastName(), rapportGenerated.getLastName());
+        assertEquals(patientTest.getFirstName(), rapportGenerated.getFirstName());
+        assertEquals(assessmentTest, rapportGenerated.getAssessment());
+
         verify(mockPatientProxy, times(1)).getPatientById(1L);
         verify(mockNoteProxy, times(1)).getNotesByLastNameAndFirstName("PatientTestLastName", "PatientTestFirstName");
-  }
- */
+    }
+
+
+    //GetRapportById for patient with diabetes risk report assessment = NONE
+    @Test
+    public void getRapportById_LessThan30SexMDeclencheur1() {
+        // ARRANGE
+        Assessment assessmentTest = Assessment.None;
+
+        Patient patientTest = new Patient();
+        patientTest.setLastName("PatientTestLastName");
+        patientTest.setFirstName("PatientTestFirstName");
+        patientTest.setDateOfBirth(LocalDate.of(2010,01,01));
+        patientTest.setSex(Sex.M);
+        patientTest.setHomeAddress("PatientTestHomeAddress");
+        patientTest.setPhoneNumber("111-222-3333");
+        patientTest.setId(1L);
+        doReturn(patientTest).when(mockPatientProxy).getPatientById(1L);
+
+        Note noteTest1 = new Note();
+        noteTest1.setPatientLastName("PatientTestLastName");
+        noteTest1.setPatientFirstName("PatientTestFirstName");
+        noteTest1.setNoteText("Height");
+        noteTest1.setPatientId(1L);
+
+        List<Note> notesTest = new ArrayList<>();
+        notesTest.add(noteTest1);
+        doReturn(notesTest).when(mockNoteProxy).getNotesByLastNameAndFirstName("PatientTestLastName", "PatientTestFirstName");
+
+        // ACT
+        Rapport rapportGenerated = rapportServiceImplUnderTest.getRapportById(1L);
+
+        // ASSERT
+        assertEquals(patientTest.getLastName(), rapportGenerated.getLastName());
+        assertEquals(patientTest.getFirstName(), rapportGenerated.getFirstName());
+        assertEquals(assessmentTest, rapportGenerated.getAssessment());
+
+        verify(mockPatientProxy, times(1)).getPatientById(1L);
+        verify(mockNoteProxy, times(1)).getNotesByLastNameAndFirstName("PatientTestLastName", "PatientTestFirstName");
+    }
+
 }
 
