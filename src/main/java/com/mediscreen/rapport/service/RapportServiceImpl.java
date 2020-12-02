@@ -7,6 +7,8 @@ import com.mediscreen.rapport.domain.Patient;
 import com.mediscreen.rapport.domain.Rapport;
 import com.mediscreen.rapport.proxy.NoteMicroserviceProxy;
 import com.mediscreen.rapport.proxy.PatientMicroserviceProxy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
@@ -20,16 +22,15 @@ import java.util.stream.Collectors;
 /**
  * Class in charge of managing the services for Rapport entities.
  */
-//@PropertySource(value="declencheurs", encoding = "UTF-8")
 @PropertySource("declencheurs")
 @Service
 public class RapportServiceImpl implements IRapportService {
 
-    //@Value("${listDeclencheurs}")
-    private String[] declencheurs;
+    private static final Logger logger = LoggerFactory.getLogger(RapportServiceImpl.class);
 
-    private PatientMicroserviceProxy patientProxy;
-    private NoteMicroserviceProxy noteProxy;
+    private final PatientMicroserviceProxy patientProxy;
+    private final NoteMicroserviceProxy noteProxy;
+    private final String[] declencheurs;
 
     public RapportServiceImpl(PatientMicroserviceProxy patientProxy, NoteMicroserviceProxy noteProxy, @Value("${listDeclencheurs}") String[] declencheurs) {
         this.patientProxy = patientProxy;
@@ -94,7 +95,7 @@ public class RapportServiceImpl implements IRapportService {
 
         Assessment assessment = Assessment.None;
 
-        // TO DO
+        /*
         if( (agePatient>30 && nbDeclencheurs>=8) ||
             (patient.getSex()==Sex.F && agePatient<30 && nbDeclencheurs>=7) ||
             (patient.getSex()==Sex.M && agePatient<30 && nbDeclencheurs>=5)
@@ -106,6 +107,22 @@ public class RapportServiceImpl implements IRapportService {
         ) {
             assessment = Assessment.InDanger;
         } else if ( agePatient>30 && nbDeclencheurs>=2 && nbDeclencheurs<=5
+        ) {
+            assessment = Assessment.Borderline;
+        }
+        */
+
+        if( (agePatient>30 && nbDeclencheurs>=8) ||
+            (Sex.F.equals(patient.getSex()) && agePatient<30 && nbDeclencheurs>=7) ||
+            (Sex.M.equals(patient.getSex()) && agePatient<30 && nbDeclencheurs>=5)
+        ) {
+            assessment = Assessment.EarlyOnset;
+        } else if ( (agePatient>30 && nbDeclencheurs>=6 ) ||
+                    (Sex.F.equals(patient.getSex()) && agePatient<30 && nbDeclencheurs>=4 && nbDeclencheurs<=6) ||
+                    (Sex.M.equals(patient.getSex()) && agePatient<30 && nbDeclencheurs>=3 && nbDeclencheurs<=4)
+        ) {
+            assessment = Assessment.InDanger;
+        } else if ( agePatient>30 && nbDeclencheurs>=2
         ) {
             assessment = Assessment.Borderline;
         }
@@ -125,6 +142,7 @@ public class RapportServiceImpl implements IRapportService {
         Arrays.stream(declencheurs).forEach((a)->System.out.print(a));
         System.out.println();
 
+        /*
         String notesString = notes.stream()
                 .map(Note::getNoteText)
                 .map(noteText -> noteText.toLowerCase())
@@ -136,8 +154,24 @@ public class RapportServiceImpl implements IRapportService {
                 .filter(s->notesString.contains(s))
                 .distinct()
                 .count();
+        */
 
-        System.out.println("notes =" + notesString);
+        String notesConcatenated = notes.stream()
+                .map(Note::getNoteText)
+                .map(String::toLowerCase)
+                .map(String::trim)
+                .collect(Collectors.joining());
+
+        long nbDeclencheurs = Arrays.stream(declencheurs)
+                .map(String::toLowerCase)
+                .filter(notesConcatenated::contains)
+                .distinct()
+                .count();
+
+        logger.debug("notes : {}", notesConcatenated);
+        logger.debug("nbDeclencheurs : {}", nbDeclencheurs);
+
+        System.out.println("notes =" + notesConcatenated);
         System.out.println("nbDeclencheurs =" + nbDeclencheurs);
 
         return nbDeclencheurs;
