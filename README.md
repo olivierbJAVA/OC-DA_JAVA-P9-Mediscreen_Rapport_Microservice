@@ -107,9 +107,11 @@ For each level of diabetes risk assessment :
 - EarlyOnset
 
 Test None :
->curl -d "family=TestNone&given=Test&dob=1966-12-31&sex=F&address=1 Brookside St&phone=100-222-3333" -X POST http://localhost:8081/patients/add
->curl -d "lastName=TestNone&firstName=Test&note=Patient states that they are 'feeling terrific' Weight at or below recommended level" -X POST http://localhost:8082/patHistory/addByLastNameAndFirstName
->curl "http://localhost:8080/assess/lastNameAndFirstName?lastName=TestNone&firstName=Test"
+`curl -d "family=TestNone&given=Test&dob=1966-12-31&sex=F&address=1 Brookside St&phone=100-222-3333" -X POST http://localhost:8081/patients/add`
+
+`curl -d "lastName=TestNone&firstName=Test&note=Patient states that they are 'feeling terrific' Weight at or below recommended level" -X POST http://localhost:8082/patHistory/addByLastNameAndFirstName`
+
+`curl "http://localhost:8080/assess/lastNameAndFirstName?lastName=TestNone&firstName=Test"`
 
 Test Borderline :
 >curl -d "family=TestBorderline&given=Test&dob=1945-06-24&sex=M&address=2 High St&phone=200-333-4444" -X POST http://localhost:8081/patients/add
