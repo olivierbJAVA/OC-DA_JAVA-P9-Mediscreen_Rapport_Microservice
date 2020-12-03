@@ -120,19 +120,19 @@ Test Borderline :
 >>curl "http://localhost:8080/assess/lastNameAndFirstName?lastName=TestBorderline&firstName=Test"
 
 Test InDanger :
->curl -d "family=TestInDanger&given=Test&dob=2004-06-18&sex=M&address=3 Club Road&phone=300-444-5555" -X POST http://localhost:8081/patients/add
+-curl -d "family=TestInDanger&given=Test&dob=2004-06-18&sex=M&address=3 Club Road&phone=300-444-5555" -X POST http://localhost:8081/patients/add
 
->curl -d "lastName=TestInDanger&firstName=Test&note=Patient states that they are short term Smoker" -X POST http://localhost:8082/patHistory/addByLastNameAndFirstName
->curl -d "lastName=TestInDanger&firstName=Test&note=Patient states that they quit within last year Patient also complains that of Abnormal breathing spells Lab reports Cholesterol LDL high" -X POST http://localhost:8082/patHistory/addByLastNameAndFirstName
+-curl -d "lastName=TestInDanger&firstName=Test&note=Patient states that they are short term Smoker" -X POST http://localhost:8082/patHistory/addByLastNameAndFirstName
+-curl -d "lastName=TestInDanger&firstName=Test&note=Patient states that they quit within last year Patient also complains that of Abnormal breathing spells Lab reports Cholesterol LDL high" -X POST http://localhost:8082/patHistory/addByLastNameAndFirstName
 
->curl "http://localhost:8080/assess/lastNameAndFirstName?lastName=TestInDanger&firstName=Test"
+-curl "http://localhost:8080/assess/lastNameAndFirstName?lastName=TestInDanger&firstName=Test"
 
 Test EarlyOnset :
->curl -d "family=TestEarlyOnset&given=Test&dob=2002-06-28&sex=F&address=4 Valley Dr&phone=400-555-6666" -X POST http://localhost:8081/patients/add
+-curl -d "family=TestEarlyOnset&given=Test&dob=2002-06-28&sex=F&address=4 Valley Dr&phone=400-555-6666" -X POST http://localhost:8081/patients/add
 
->curl -d "lastName=TestEarlyOnset&firstName=Test&note=Patient states that walking up stairs has become difficult Patient also complains that they are having shortness of breath Lab results indicate Antibodies present elevated Reaction to medication" -X POST http://localhost:8082/patHistory/addByLastNameAndFirstName
->curl -d "lastName=TestEarlyOnset&firstName=Test&note=Patient states that they are experiencing back pain when seated for a long time" -X POST http://localhost:8082/patHistory/addByLastNameAndFirstName
->curl -d "lastName=TestEarlyOnset&firstName=Test&note=Patient states that they are a short term Smoker Hemoglobin A1C above recommended level" -X POST http://localhost:8082/patHistory/addByLastNameAndFirstName
->curl -d "lastName=TestEarlyOnset&firstName=Test&note=Patient states that Body Height, Body Weight, Cholesterol, Dizziness and Reaction" -X POST http://localhost:8082/patHistory/addByLastNameAndFirstName
+-curl -d "lastName=TestEarlyOnset&firstName=Test&note=Patient states that walking up stairs has become difficult Patient also complains that they are having shortness of breath Lab results indicate Antibodies present elevated Reaction to medication" -X POST http://localhost:8082/patHistory/addByLastNameAndFirstName
+-curl -d "lastName=TestEarlyOnset&firstName=Test&note=Patient states that they are experiencing back pain when seated for a long time" -X POST http://localhost:8082/patHistory/addByLastNameAndFirstName
+-curl -d "lastName=TestEarlyOnset&firstName=Test&note=Patient states that they are a short term Smoker Hemoglobin A1C above recommended level" -X POST http://localhost:8082/patHistory/addByLastNameAndFirstName
+-curl -d "lastName=TestEarlyOnset&firstName=Test&note=Patient states that Body Height, Body Weight, Cholesterol, Dizziness and Reaction" -X POST http://localhost:8082/patHistory/addByLastNameAndFirstName
 
->curl "http://localhost:8080/assess/lastNameAndFirstName?lastName=TestEarlyOnset&firstName=Test"
+-curl "http://localhost:8080/assess/lastNameAndFirstName?lastName=TestEarlyOnset&firstName=Test"
