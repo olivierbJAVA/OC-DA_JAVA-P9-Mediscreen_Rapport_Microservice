@@ -97,9 +97,9 @@ Tests are included. You can run them using JUnit runner or using Gradle.
 ### Manual tests in command line using Curl
 
 If you want to manually test the application, you will find below Curl command lines in order to :
-- create a patient
-- add its notes
-- generate the diabetes risk assessment report
+- Create a patient
+- Add its notes
+- Generate the diabetes risk assessment report
 
 For each level of diabetes risk assessment : 
 - None
@@ -107,14 +107,14 @@ For each level of diabetes risk assessment :
 - InDanger
 - EarlyOnset
 
-Test None :
+1.Test None :  
 `curl -d "family=TestNone&given=Test&dob=1966-12-31&sex=F&address=1 Brookside St&phone=100-222-3333" -X POST http://localhost:8081/patients/add`  
 
 `curl -d "lastName=TestNone&firstName=Test&note=Patient states that they are 'feeling terrific' Weight at or below recommended level" -X POST http://localhost:8082/patHistory/addByLastNameAndFirstName`  
 
 `curl "http://localhost:8080/assess/lastNameAndFirstName?lastName=TestNone&firstName=Test"`  
 
-Test Borderline :
+2.Test Borderline :  
 `curl -d "family=TestBorderline&given=Test&dob=1945-06-24&sex=M&address=2 High St&phone=200-333-4444" -X POST http://localhost:8081/patients/add`  
 
 `curl -d "lastName=TestBorderline&firstName=Test&note=Patient states that they are feeling a great deal of stress at work Patient also complains that their hearing seems Abnormal as of late" -X POST http://localhost:8082/patHistory/addByLastNameAndFirstName`  
@@ -123,7 +123,7 @@ Test Borderline :
 
 `curl "http://localhost:8080/assess/lastNameAndFirstName?lastName=TestBorderline&firstName=Test"`  
 
-Test InDanger :
+3.Test InDanger :  
 `curl -d "family=TestInDanger&given=Test&dob=2004-06-18&sex=M&address=3 Club Road&phone=300-444-5555" -X POST http://localhost:8081/patients/add`  
 
 `curl -d "lastName=TestInDanger&firstName=Test&note=Patient states that they are short term Smoker" -X POST http://localhost:8082/patHistory/addByLastNameAndFirstName`  
@@ -132,7 +132,7 @@ Test InDanger :
 
 `curl "http://localhost:8080/assess/lastNameAndFirstName?lastName=TestInDanger&firstName=Test"`  
 
-Test EarlyOnset :
+4.Test EarlyOnset :  
 `curl -d "family=TestEarlyOnset&given=Test&dob=2002-06-28&sex=F&address=4 Valley Dr&phone=400-555-6666" -X POST http://localhost:8081/patients/add`  
 
 `curl -d "lastName=TestEarlyOnset&firstName=Test&note=Patient states that walking up stairs has become difficult Patient also complains that they are having shortness of breath Lab results indicate Antibodies present elevated Reaction to medication" -X POST http://localhost:8082/patHistory/addByLastNameAndFirstName`  
