@@ -95,23 +95,6 @@ public class RapportServiceImpl implements IRapportService {
 
         Assessment assessment = Assessment.None;
 
-        /*
-        if( (agePatient>30 && nbDeclencheurs>=8) ||
-            (patient.getSex()==Sex.F && agePatient<30 && nbDeclencheurs>=7) ||
-            (patient.getSex()==Sex.M && agePatient<30 && nbDeclencheurs>=5)
-        ) {
-            assessment = Assessment.EarlyOnset;
-        } else if ( (agePatient>30 && nbDeclencheurs>=6 && nbDeclencheurs<=7) ||
-                    (patient.getSex()==Sex.F && agePatient<30 && nbDeclencheurs>=4 && nbDeclencheurs<=6) ||
-                (patient.getSex()==Sex.M && agePatient<30 && nbDeclencheurs>=3 && nbDeclencheurs<=4)
-        ) {
-            assessment = Assessment.InDanger;
-        } else if ( agePatient>30 && nbDeclencheurs>=2 && nbDeclencheurs<=5
-        ) {
-            assessment = Assessment.Borderline;
-        }
-        */
-
         if( (agePatient>30 && nbDeclencheurs>=8) ||
             (Sex.F.equals(patient.getSex()) && agePatient<30 && nbDeclencheurs>=7) ||
             (Sex.M.equals(patient.getSex()) && agePatient<30 && nbDeclencheurs>=5)
@@ -139,23 +122,6 @@ public class RapportServiceImpl implements IRapportService {
     @Override
     public long computeNbDeclencheurs(List<Note> notes) {
 
-        Arrays.stream(declencheurs).forEach((a)->System.out.print(a));
-        System.out.println();
-
-        /*
-        String notesString = notes.stream()
-                .map(Note::getNoteText)
-                .map(noteText -> noteText.toLowerCase())
-                .map(noteText -> noteText.trim())
-                .collect(Collectors.joining());
-
-        long nbDeclencheurs = Arrays.stream(declencheurs)
-                .map(declencheur -> declencheur.toLowerCase())
-                .filter(s->notesString.contains(s))
-                .distinct()
-                .count();
-        */
-
         String notesConcatenated = notes.stream()
                 .map(Note::getNoteText)
                 .map(String::toLowerCase)
@@ -170,9 +136,6 @@ public class RapportServiceImpl implements IRapportService {
 
         logger.debug("notes : {}", notesConcatenated);
         logger.debug("nbDeclencheurs : {}", nbDeclencheurs);
-
-        System.out.println("notes =" + notesConcatenated);
-        System.out.println("nbDeclencheurs =" + nbDeclencheurs);
 
         return nbDeclencheurs;
     }

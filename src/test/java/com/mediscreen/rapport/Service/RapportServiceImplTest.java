@@ -8,15 +8,11 @@ import com.mediscreen.rapport.domain.Rapport;
 import com.mediscreen.rapport.proxy.NoteMicroserviceProxy;
 import com.mediscreen.rapport.proxy.PatientMicroserviceProxy;
 import com.mediscreen.rapport.service.RapportServiceImpl;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 
@@ -31,12 +27,6 @@ import static org.mockito.Mockito.*;
 @TestPropertySource("declencheurs")
 @ExtendWith(MockitoExtension.class)
 public class RapportServiceImplTest {
-
-   //@Value("${listDeclencheurs}")
-   //private String[] declencheurs;
-
-   //@InjectMocks
-   //private RapportServiceImpl rapportServiceImplUnderTest;
 
     private RapportServiceImpl rapportServiceImplUnderTest;
 

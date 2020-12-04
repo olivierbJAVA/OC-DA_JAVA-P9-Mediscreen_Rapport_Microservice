@@ -19,7 +19,6 @@ public interface PatientMicroserviceProxy {
      * @return The patient
      */
     @GetMapping(value = "/patients/patientByFamilyAndGiven")
-    //ResponseEntity<Patient> getPatientByLastNameAndFirstName(@RequestParam("family") String lastName, @RequestParam("given") String firstName);
     Patient getPatientByLastNameAndFirstName(@RequestParam("family") String lastName, @RequestParam("given") String firstName);
 
     /**
