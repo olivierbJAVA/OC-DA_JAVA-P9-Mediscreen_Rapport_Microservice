@@ -1,4 +1,4 @@
-# Mediscreen - Rapport application
+# Mediscreen - Rapport Microservice
 Welcome to Mediscreen !
 
 - Mediscreen is a medical company specialized in diseases diagnosis
