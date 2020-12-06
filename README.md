@@ -29,11 +29,11 @@ BackEnd side :
 - JUnit as tests engine
 - Mockito as mocking framework for tests
 
-Microservices communicate using REST APIs.
+Microservices communicate using REST APIs and Feign HTTP client.
 
 ### Getting Started
 
-The following instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+The following instructions will get you a copy of the project up and running on your local machine.
 
 You need to install the following software :
 
@@ -55,6 +55,8 @@ You will find below a step by step explanation that tell you how to get a develo
 3.Install Docker + Docker-Compose :
 <https://docs.docker.com/get-docker/>
 
+>Please note that the application has been developed with the IntelliJ IDE.
+
 ### Profiles and Configuration
 
 Three Spring profiles are available for each following phase :
@@ -66,17 +68,15 @@ Three Spring profiles are available for each following phase :
 There is a global Spring configuration properties file : application.properties, and a dedicated configuration properties file for each profile : application-*profileName*.properties. 
 These files are stored in the src/main/resources directory for PROD and DEV profiles and in the src/test/resources directory for the TEST profile.
 
-The URL (hostname + port) for the Patient and Note Microservices can be configured in these files.
+The URL (hostname + port) for the Patient and Note Microservices communication can be configured in these files.
 
 The terms that are used to generate the diabetes risk report and that are searched in the patient notes history can be parametrized in the configuration file called *declencheurs*.
 
-### Application running
+### Microservice running
 
-If you want to run the application in an IDE, please use the DEV profile.  
-  
-If you want to run the application in Docker containers, please use the PROD profile.  
-
->Please note that the application has been developed with the IntelliJ IDE.
+You can run the Microservice in an IDE or in Docker containers :
+- To run the Microservice in an IDE, you must use the DEV profile.  
+- To run the Microservice in Docker containers, you must use the PROD profile.  
 
 ### Endpoints
 
