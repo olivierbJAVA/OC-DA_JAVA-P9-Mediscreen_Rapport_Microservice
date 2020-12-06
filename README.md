@@ -80,7 +80,7 @@ You can run the Microservice in an IDE or in Docker containers :
 
 ### Endpoints
 
-For information about EndPoints that are exposed by the Mediscreen Rapport Microservice, please refer to the document located in this repository called : 
+For information about EndPoints that are exposed by the Mediscreen Rapport Microservice, please refer to the document located in this repository called : *Specifications_API-REST_Sprint3-RAPPORT*
 
 ### Docker container deployment
 
