@@ -72,7 +72,9 @@ The terms that are used to generate the diabetes risk report and that are search
 
 ### Application running
 
-Then you can import and run the application from your favorite IDE.
+If you want to run the application in an IDE, please use the DEV profile.  
+  
+If you want to run the application in Docker containers, please use the PROD profile.  
 
 >Please note that the application has been developed with the IntelliJ IDE.
 
